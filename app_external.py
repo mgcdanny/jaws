@@ -21,4 +21,4 @@ def c():
     return jsonify({'data': user_dict.get(user_id)})
 
 if __name__ == '__main__':
-    app.run('127.0.0.1', 8000, debug=False)
+    app.run('127.0.0.1', 8000, debug=True)

@@ -1,18 +1,21 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 @app.route('/api/model/a', methods=['POST'])
 def model1():
-    #TODO: take the value from sum('api/a', user_data)
-    api = 0 
-    result = sum(api, request.json['user_data'])
+    #TODO: take the value from sum('api/a', user_input)
+    api = 0
+    print(request.json, flush=True)
+    user_input = request.json['user_input']
+    result = api + user_input
     return jsonify({'model': result})
 
 @app.route('/api/model/b', methods=['POST'])
 def model2():
-    #TODO: take the value from sum('api/b', user_data)
+    #TODO: take the value from sum('api/b', user_input)
     api = 0 
-    result = sum(api, request.json['user_data'])
+    user_input = request.json['user_input']
+    result = api + user_input
     return jsonify({'model': result})
 
 @app.route('/api/model/c', methods=['POST'])
@@ -25,4 +28,4 @@ def model3():
     return jsonify({'model': result})
 
 if __name__ == '__main__':
-    app.run('127.0.0.1', 8001, debug=False)
+    app.run('127.0.0.1', 8001, debug=True)

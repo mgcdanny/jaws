@@ -10,8 +10,11 @@ def home():
     <title>JAWS Demo</title>
     <h1>Enter User Data</h1>
     <form action='/api/user' method=post enctype=multipart/form-data>
+      <h2>User ID</h2>
+      <p><input type=text name=user_id>
+      <h2>User Input</h2>
       <p><input type=text name=user_input>
-         <input type=submit value=Submit>
+      <p><input type=submit value=Submit>
     </form>
     '''
 
@@ -36,4 +39,4 @@ def user():
     return redirect(url_for('waiting'))
 
 if __name__ == '__main__':
-    app.run('127.0.0.1', 8002, debug=False)
+    app.run('127.0.0.1', 8002, debug=True)

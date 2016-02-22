@@ -1,0 +1,5 @@
+curl -X POST -H "Content-Type: application/json" -d '{"user_id":1, "user_input": 123}' http://127.0.0.1:8000/api/a
+
+curl -X POST -H "Content-Type: application/json" -d '{"user_id":1, "user_input": 123}' http://127.0.0.1:8001/api/model/a
+
+curl -X POST --form "user_input=567" http://127.0.0.1:8002/api/user
