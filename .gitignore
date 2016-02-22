@@ -1,3 +1,9 @@
+#extra files:
+*.pid
+*.log
+get-pip.py
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -48,9 +54,6 @@ coverage.xml
 # Translations
 *.mo
 *.pot
-
-# Django stuff:
-*.log
 
 # Sphinx documentation
 docs/_build/
