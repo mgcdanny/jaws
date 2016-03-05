@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 app = Flask(__name__)
 
-@app.route('/api/model/a', methods=['POST'])
+@app.route('/api/model/a/', methods=['POST'])
 def model1():
     #TODO: take the value from sum('api/a', user_input)
     api = 0

@@ -27,6 +27,12 @@ python3.5
 supervisord via:
     sudo apt-get install -y supervisor
 
+supervisord can also be installed into a python2.7 virtual env and installed with pip into that env.
+
 commands:
 $ supervisord
 $ pkill supervisor
+$ pkill celery
+
+make sure the celery workers are dead like this:
+    ps auxww | grep 'celery worker' | awk '{print $2}' | xargs kill -9

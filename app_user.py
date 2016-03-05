@@ -1,4 +1,6 @@
 from flask import Flask, jsonify, request, redirect, url_for, session
+from db import db, Data
+
 app = Flask(__name__)
 
 app.secret_key = '1 secret key this is !'
@@ -36,7 +38,10 @@ def user():
         # update the user page with results from app_models when complete
     print(request.form, flush=True)
     session['user_input'] = request.form['user_input']
+    input_id = db.insert(request.form)
+    print(input_id, flush=True)
+    # trigger events on input_id
     return redirect(url_for('waiting'))
 
 if __name__ == '__main__':
-    app.run('127.0.0.1', 8002, debug=True)
+    app.run('127.0.0.1', 8000, debug=True)

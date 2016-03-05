@@ -1,6 +1,7 @@
 #extra files:
 *.pid
 *.log
+*.json
 get-pip.py
 
 
