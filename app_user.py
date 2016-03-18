@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, redirect, url_for, session
 from db import db, Data
+from tasks import party_a
 
 app = Flask(__name__)
 

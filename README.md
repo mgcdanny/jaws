@@ -36,3 +36,4 @@ $ pkill celery
 
 make sure the celery workers are dead like this:
     ps auxww | grep 'celery worker' | awk '{print $2}' | xargs kill -9
+
