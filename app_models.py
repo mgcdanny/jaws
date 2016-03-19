@@ -5,7 +5,6 @@ app = Flask(__name__)
 def model1():
     #TODO: take the value from sum('api/a', user_input)
     api = 0
-    print(request.json, flush=True)
     user_input = request.json['user_input']
     result = api + user_input
     return jsonify({'model': result})

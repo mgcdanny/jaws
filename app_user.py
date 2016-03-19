@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, redirect, url_for, session
 from db import db, Data
-from tasks import party_a
+from tasks import run_async_flow
 
 app = Flask(__name__)
 
@@ -41,6 +41,8 @@ def user():
     session['user_input'] = request.form['user_input']
     input_id = db.insert(request.form)
     print(input_id, flush=True)
+    res = run_async_flow.delay(input_id)
+    print(res.get(), flush=True)
     # trigger events on input_id
     return redirect(url_for('waiting'))
 
