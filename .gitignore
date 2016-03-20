@@ -3,7 +3,7 @@
 *.log
 *.json
 get-pip.py
-
+ENV/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

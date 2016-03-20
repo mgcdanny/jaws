@@ -32,19 +32,10 @@ class ApiHandler(web.RequestHandler):
     def post(self, *args): # curl -X POST -d '{"ws_id":1}' 'http://127.0.0.1:8888/api/'
         self.finish() # what is this self.finish() do?
         data = json.loads(self.request.body.decode('utf-8'), encoding='utf-8')
+        print(data)
         for ws in wss:
             if ws.ws_id == data['ws_id']:
                 ws.write_message(json.dumps(data))
-
-    @web.asynchronous
-    def get(self, *args): # curl -X GET http://127.0.0.1:8888/api/?id=123&value=9876
-        self.finish() # what is this self.finish() do?
-        _id = self.get_argument("id") 
-        value = self.get_argument("value")
-        data = {"id": _id, "value" : value}
-        data = json.dumps(data)
-        for ws in wss:
-            ws.write_message(data)
 
 
 app = web.Application([

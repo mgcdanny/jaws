@@ -35,15 +35,14 @@ def home():
                 var messageRecieve = 'Information Recieved. Please Wait For Results :)'
 
                 function ajaxSuccess () {
-                    console.log(this.responseText)
-                    userData = JSON.parse(this.responseText) // this.response is the server-side response
+                    userData = JSON.parse(this.responseText) // this.responseText is the server-side response
                     addTextNode('status', messageRecieve)
                     socket = new WebSocket('ws://127.0.0.1:8888/ws/' + socketID); // use socket variable from outer scope
                     socket.onopen = function (e) {
-                        socket.send('hello, server, this is the the client');
+                        socket.send('hello, server, this is the the client: ' + socketID);
                     }
                     socket.onmessage = function (event) {
-                        console.log('socket on');
+                        console.log('socket onmessage');
                         console.log(event.data);
                         addTextNode('result', event.data)
                     }
@@ -56,6 +55,7 @@ def home():
                     oReq.open('POST', '/api/user');
                     var form = new FormData(oFormElement);
                     form.append('socketID', socketID);
+                    console.log(form)
                     oReq.send(form);
                 }
             </script>
@@ -86,17 +86,16 @@ def waiting():
 
 @app.route('/api/user', methods=['POST'])
 def user():
-    # TODO (asynchronously):
-        # respond the user a response saying 'thank you for your data'
-        # send user data to app_external
-        # send app_external responses to app_models
-        # update the user page with results from app_models when complete
-    print('*'*50, flush=True)
     print(request.form, flush=True)
-    session['user_input'] = request.form['user_input']
-    run_id = db.insert(request.form) # run_id must be unique inorder to also use as celery task_id
-    res = tasks.run_async_flow.apply_async((request.form['socketID'],), task_id=str(run_id))
-    return jsonify({'run_id': run_id})
+    data = request.form.copy()
+    print(data, flush=True)
+    run_id = db.insert(request.form) # run_id must be unique inorder to also use as celery task_id, easier to debug messages
+    data['run_id'] = run_id
+    data['ws_id'] = data['socketID']
+    # todo: use sessions to keep track of all the runs a user might execute inorder to display on the website
+    # session['user_input'] = data['user_input']
+    res = tasks.run_async_flow.apply_async((data,), task_id=str(run_id))
+    return jsonify({'data': data})
 
 if __name__ == '__main__':
     app.run('127.0.0.1', 8000, debug=True)
